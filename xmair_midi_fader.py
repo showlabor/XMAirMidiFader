@@ -70,8 +70,7 @@ except liblo.ServerError as err:
 # Add listener for fader value
 
 def xair_fader_callback(path, args):
-    global xair_cur_val, xair_cur_idx
-    print("received message '%s'" % path)
+    global xair_cur_idx
     xair_cur_idx = indexFromFloat(args[0])
 
 server.add_method(XAIR_FADER_PATH, 'f', xair_fader_callback)
@@ -86,7 +85,7 @@ server.send(xair, XAIR_FADER_PATH)
 
 # Callback to handle MIDI messages
 def midi_callback(midi_msg):
-    global MIDI_CONTROL, MIDI_MAX
+    global MIDI_CONTROL, MIDI_MAX, MIDI_MIN
     global server
     global midi_cur_idx, midi_old_idx, xair_cur_idx
 
