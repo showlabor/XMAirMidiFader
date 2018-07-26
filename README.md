@@ -5,7 +5,7 @@ You need to adjust change the mixers IP address and choose the right MIDI contro
 
 ## Dependencies
 
-XMAirMidiFader uses [Mido](http://mido.readthedocs.io/en/latest/) and [python-rtmidi](https://github.com/SpotlightKid/python-rtmidi) for MIDI. OSC communication is handled by [pyliblo](https://github.com/dsacre/pyliblo) for OSC communication. You can install all of them via pip, i.e. `pip install --user mido pyliblo python-rtmidi`.
+XMAirMidiFader uses [Mido](http://mido.readthedocs.io/en/latest/) and [python-rtmidi](https://github.com/SpotlightKid/python-rtmidi) for MIDI. OSC communication is handled by [pyliblo](https://github.com/dsacre/pyliblo). You can install all of them via pip, i.e. `pip install --user mido pyliblo python-rtmidi`.
 
 Those packages have their own dependencies. For instance, you need to have Cython and [liblo](https://github.com/radarsat1/liblo) installed. Please, check the respective documentations.
 
