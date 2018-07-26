@@ -17,7 +17,6 @@
 #  You should have received a copy of the GNU General Public License
 #  along with XMAirMidiFader. If not, see <http://www.gnu.org/licenses/>.
 
-
 import mido
 import liblo
 import time
@@ -68,7 +67,6 @@ except liblo.ServerError as err:
     exit()
 
 # Add listener for fader value
-
 def xair_fader_callback(path, args):
     global xair_cur_idx
     xair_cur_idx = indexFromFloat(args[0])
@@ -97,20 +95,21 @@ def midi_callback(midi_msg):
     midi_cur_val = midi_msg.value / (MIDI_MAX - MIDI_MIN)
     midi_cur_idx = indexFromFloat(midi_cur_val)
 
-    # TODO: I'm pretty sure the following condition can be simplified.
+    # TODO: I'm pretty sure the following conditions can be simplified.
     # Too lazy to think about it right now ;-)
     if (midi_cur_idx >= midi_old_idx):
         velocity = midi_cur_idx - midi_old_idx
     else:
         velocity = midi_old_idx - midi_cur_idx
 
+    # Only send out new midi value if it's reasonably close to the last known value on the
+    # mixer. "Reasonably close" as estimated by the fader velocity.
     if ((midi_cur_idx >= xair_cur_idx and (midi_cur_idx - xair_cur_idx) < 2 * velocity) or
         (midi_cur_idx <= xair_cur_idx and (xair_cur_idx - midi_cur_idx) < 2 * velocity)) :
         server.send(xair, XAIR_FADER_PATH, midi_cur_val)
 
 
 # Open MIDI port.
-
 try:
     port = mido.open_input(mido.get_input_names()[MIDI_PORT])
     # Set callback
